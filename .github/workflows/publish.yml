@@ -1,0 +1,40 @@
+name: publish
+
+# Publishing is tag-driven: bump the version, push a `v*` tag, and this publishes.
+# Nothing manual after that — no OTP, no token, no `npm publish` on a laptop.
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  # Required for OIDC. This is what lets npm verify the workflow's identity
+  # instead of trusting a long-lived token.
+  id-token: write
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+          # Never cache in a release build.
+          package-manager-cache: false
+
+      - name: Install
+        run: npm ci
+
+      # Never publish something that does not pass its own tests.
+      - name: Test
+        run: npm test
+
+      # No --provenance flag: publishing through a trusted publisher from a
+      # public repo produces the provenance attestation automatically.
+      - name: Publish
+        run: npm publish
