@@ -125,6 +125,17 @@ node --test test/*.test.mjs
 测试是纯函数、不联网的；唯一的例外是 fixtures —— 那些是**从各源真实抓取的样本**
 （`test/fixtures/`），解析器是对着源**实际发出的格式**写的，不是对着它**应该发出的格式**。
 
+### 可选：GitHub token
+
+唯一用到凭据的地方是 GitHub 搜索源（其余四个目录都是公开 JSON，不需要认证）。
+不带 token 时走匿名配额 **10 次/分钟**，正常使用足够；想放宽就设一个：
+
+```sh
+DSH_FIND_PLUGINS_GITHUB_TOKEN=ghp_xxx     # 或沿用通用的 GITHUB_TOKEN
+```
+
+只读公开数据，不需要任何 scope。
+
 ---
 
 ## 许可

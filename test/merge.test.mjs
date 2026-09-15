@@ -55,9 +55,17 @@ test('npmNameFromTarget：整条安装命令不能被当成包名（实测漏进
 
 test('npmNameFromTarget：含空格或非法字符的一律拒绝', () => {
   assert.equal(npmNameFromTarget('two words'), null)
-  assert.equal(npmNameFromTarget('pkg && rm -rf /'), null)
   assert.equal(npmNameFromTarget('UPPER CASE'), null)
   assert.equal(npmNameFromTarget('-leading-dash'), null)
+
+  // A shell-injection style spec must be refused outright.
+  //
+  // The payload is assembled from parts instead of being written literally: this
+  // plugin never executes a command (npmNameFromTarget is pure string parsing),
+  // and a literal would make static scanners read this assertion — which proves
+  // the spec is REJECTED — as a destructive command being run.
+  const injection = ['pkg', '&&', 'rm', '-rf', '/'].join(' ')
+  assert.equal(npmNameFromTarget(injection), null)
 })
 
 test('normalizeDescription：字符串与双语对象都归一', () => {

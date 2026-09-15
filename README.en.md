@@ -148,6 +148,18 @@ written against what the sources actually send, not what they ought to send.
 Local runs need the peer dependencies resolvable; when developing inside another  
 repo, point `node_modules/@deepseek-ai/{dsh-tools,cordis}` at the runtime's copy.
 
+### Optional: GitHub token
+
+The only place credentials are used is the GitHub search source (the other four  
+catalogs are public JSON and need no auth). Without a token you get the anonymous  
+quota of **10 requests/minute**, which is plenty for normal use — raise it with:
+
+```sh
+DSH_FIND_PLUGINS_GITHUB_TOKEN=ghp_xxx     # or the conventional GITHUB_TOKEN
+```
+
+Read-only public data; no scope required.
+
 ---
 
 ## License
