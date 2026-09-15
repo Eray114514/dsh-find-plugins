@@ -4,7 +4,7 @@ import assert from 'node:assert/strict'
 
 import {
   betterDescription, entry, installTarget, latestStamp, mergeEntries,
-  normalizeDescription, npmNameFromTarget, repoFromSpec, repoFromUrl, targetFromCommand,
+  normalizeDescription, npmNameFromTarget, repoFromSpec, repoFromUrl, specFragment, targetFromCommand,
 } from '../lib/merge.js'
 
 test('repoFromUrl：吃掉的是仓库名，不是 markdown 残留', () => {
@@ -143,4 +143,68 @@ test('installTarget：npm 名优先于 github spec，且不带 profile 名', () 
   assert.equal(installTarget({ npm: null, repo: null }), null)
   const target = installTarget({ npm: null, repo: 'a/b' })
   assert.ok(!target.includes('--profile'), '不该把 profile 名写进目标里')
+})
+
+test('specFragment：只吃合法的 # 片段，脏数据一律不放行', () => {
+  assert.equal(specFragment('github:o/r#v1.2.3'), 'v1.2.3')
+  assert.equal(specFragment('github:o/r#path:/packages/x'), 'path:/packages/x')
+  assert.equal(specFragment('github:o/r'), null)
+  assert.equal(specFragment(null), null)
+  // 片段会被拼进用户要执行的命令，空格与 shell 元字符必须被拒绝
+  assert.equal(specFragment('github:o/r#v1 && rm -rf /'), null)
+  assert.equal(specFragment('github:o/r#`whoami`'), null)
+})
+
+test('installTarget：源钉住的版本 ref 必须保留（否则等于推荐装 HEAD）', () => {
+  // 实测 dsh.so 有 2368 条 spec 带 ref，丢掉它就是把"目录验证过的版本"换成"现在的 HEAD"
+  assert.equal(
+    installTarget({ npm: null, repo: 'whiteguo233/OpenBiliClaw', ref: 'v0.3.90' }),
+    'github:whiteguo233/OpenBiliClaw#v0.3.90',
+  )
+})
+
+test('installTarget：monorepo 子目录用 #path:/ 保留，ref 与 path 同时存在时用 & 连接', () => {
+  assert.equal(
+    installTarget({ npm: null, repo: 'o/r', path: 'packages/x' }),
+    'github:o/r#path:/packages/x',
+  )
+  assert.equal(
+    installTarget({ npm: null, repo: 'o/r', ref: 'v1.0.0', path: 'packages/x' }),
+    'github:o/r#v1.0.0&path:/packages/x',
+  )
+  // ref 里已经写了 path:/ 就不该再拼一遍
+  assert.equal(
+    installTarget({ npm: null, repo: 'o/r', ref: 'path:/packages/x', path: 'packages/x' }),
+    'github:o/r#path:/packages/x',
+  )
+})
+
+test('installTarget：npm 名优先于任何 github 形态（含带 ref 的）', () => {
+  assert.equal(installTarget({ npm: 'dsh-x', repo: 'o/r', ref: 'v1.0.0' }), 'dsh-x')
+})
+
+test('entry：没有仓库的 npm 包也成条目，key 用 npm 命名空间', () => {
+  const item = entry({ source: 'npm', repo: null, npm: '@scope/pkg', description: 'x' })
+  assert.equal(item.key, 'npm:@scope/pkg')
+  assert.equal(item.repo, null)
+  assert.equal(item.url, 'https://www.npmjs.com/package/@scope/pkg')
+  assert.equal(item.name, 'pkg')
+  assert.equal(installTarget(item), '@scope/pkg')
+  // 两者都没有就没法装、也没法去重
+  assert.equal(entry({ source: 'npm', repo: null, npm: null }).key, null)
+})
+
+test('mergeEntries：ref / path / npmVersion / compat 由别的源补齐', () => {
+  const merged = mergeEntries([
+    entry({ source: 'awesome', repo: 'a/b' }),
+    entry({
+      source: 'dsh.works', repo: 'a/b', path: 'packages/x', npm: 'dsh-b',
+      npmVersion: '1.0.0', compat: { version: '0.1.5-rc.2', at: '2026-09-10' },
+    }),
+  ])
+  assert.equal(merged.length, 1)
+  assert.equal(merged[0].path, 'packages/x')
+  assert.equal(merged[0].npmVersion, '1.0.0')
+  assert.equal(merged[0].compat.version, '0.1.5-rc.2')
+  assert.equal(merged[0].ref, null, '没人提供 ref 时保持 null，而不是 undefined')
 })

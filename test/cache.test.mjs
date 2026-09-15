@@ -3,7 +3,7 @@
 import { test, beforeEach } from 'node:test'
 import assert from 'node:assert/strict'
 
-import { clearCache, fetchJson, fetchText, shortError } from '../lib/cache.js'
+import { cacheSize, clearCache, fetchJson, fetchText, shortError } from '../lib/cache.js'
 import { loadOne } from '../lib/sources/index.js'
 
 const realFetch = globalThis.fetch
@@ -125,6 +125,33 @@ test('loadOne：成功的源保留 stale 与 entries', async () => {
   assert.equal(res.ok, true)
   assert.equal(res.stale, true)
   assert.equal(res.entries.length, 1)
+})
+
+test('loadOne：源卡住时按预算返回 timeout，而不是把调用挂住', async () => {
+  // 逐源超时只约束一次请求；预算是唯一约束整个调用的东西（一个目录的请求超时是 60s）
+  const res = await loadOne({ id: 'hang', label: 'hang', load: () => new Promise(() => {}) }, undefined, 20)
+  assert.equal(res.ok, false)
+  assert.equal(res.error, 'timeout')
+  assert.deepEqual(res.entries, [])
+})
+
+test('loadOne：源报的相关总量会被带上（模型要知道只是读了一页）', async () => {
+  const res = await loadOne({ id: 'search', label: 'search', load: async () => ({ ok: true, total: 14915, entries: [] }) })
+  assert.equal(res.total, 14915)
+})
+
+test('缓存有上限：写满后最老的键被逐出，最新的还在', async () => {
+  let calls = 0
+  mockFetch(async () => { calls += 1; return jsonResponse({ n: calls }) })
+  for (let i = 0; i < 205; i += 1) await fetchJson(`https://example.test/lru-${i}`, { ttlMs: 60_000 })
+  assert.equal(cacheSize(), 200, '缓存不该无上限增长')
+
+  const newest = await fetchJson('https://example.test/lru-204', { ttlMs: 60_000 })
+  assert.equal(newest.cached, true, '最新写入的必须还在')
+  const before = calls
+  const oldest = await fetchJson('https://example.test/lru-0', { ttlMs: 60_000 })
+  assert.equal(oldest.cached, false, '最老的应已被逐出（重新请求）')
+  assert.equal(calls, before + 1)
 })
 
 // 恢复真实 fetch，避免影响其它测试文件（同进程运行时）

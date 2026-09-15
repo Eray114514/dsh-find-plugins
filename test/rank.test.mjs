@@ -3,7 +3,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 
-import { bm25, buildIndex, documentFrequencies, documentText, relevance, search, tokenize } from '../lib/text.js'
+import { bm25, buildIndex, documentFrequencies, documentText, expandTokens, pluralVariants, relevance, search, tokenize } from '../lib/text.js'
 import { freshnessScore, rank, trustScore } from '../lib/rank.js'
 import { entry } from '../lib/merge.js'
 
@@ -46,6 +46,54 @@ test('中文二字切分能命中"跨会话长期记忆"这类近义表述', () 
   }]
   const hits = search('跨会话记忆', items)
   assert.equal(hits.length, 1, '整串匹配的实现会在这里返回 0')
+})
+
+// ---------------------------------------------------------------------------
+// 复数折叠
+// ---------------------------------------------------------------------------
+
+test('pluralVariants：双向折叠，单复数都指向另一形态', () => {
+  assert.deepEqual(pluralVariants('screenshots'), ['screenshot'])
+  assert.deepEqual(pluralVariants('screenshot'), ['screenshots'])
+  assert.deepEqual(pluralVariants('notifications'), ['notification'])
+  assert.deepEqual(pluralVariants('plugins'), ['plugin'])
+  assert.deepEqual(pluralVariants('queries'), ['query'])
+  assert.deepEqual(pluralVariants('query'), ['queries'])
+})
+
+test('pluralVariants：看起来像复数但不是的词必须放过（否则毁掉真实标识符）', () => {
+  for (const token of ['status', 'css', 'bus', 'analysis', 'canvas', 'plus']) {
+    assert.deepEqual(pluralVariants(token), [], `${token} 不该被折叠`)
+  }
+  // 短词不动：ts / db / ui 这类更像标识符，加 s 的噪声比召回更贵
+  assert.deepEqual(pluralVariants('ts'), [])
+  assert.deepEqual(pluralVariants('ui'), [])
+})
+
+test('复数查询与单数查询命中同一批条目（实测 92 vs 26 的那种退化）', () => {
+  const items = [
+    { name: 'dsh-vision', repo: 'a/dsh-vision', description: { en: 'screenshot helper', zh: '' }, category: '' },
+    { name: 'shots', repo: 'b/shots', description: { en: 'takes screenshots', zh: '' }, category: '' },
+  ]
+  const single = search('screenshot', items).map((hit) => hit.item.repo).sort()
+  const plural = search('screenshots', items).map((hit) => hit.item.repo).sort()
+  assert.equal(single.length, 2)
+  assert.deepEqual(plural, single, '单数/复数必须可互换，而不是换出另一批候选')
+})
+
+test('复数变体也能吃到同义词（screenshots 要能命中中文"截图"）', () => {
+  const items = [{
+    name: 'dsh-shot', repo: 'a/dsh-shot',
+    description: { en: '', zh: '给纯文本模型提供截图能力' }, category: '',
+  }]
+  assert.equal(search('screenshots', items).length, 1, '变体先于同义词展开：screenshots → screenshot → 截图')
+})
+
+test('expandTokens：变体与同义词都进查询词，且不重复', () => {
+  const tokens = expandTokens(tokenize('screenshots'))
+  assert.ok(tokens.includes('screenshot'))
+  assert.ok(tokens.includes('截图'))
+  assert.equal(new Set(tokens).size, tokens.length, '不该有重复 token')
 })
 
 // ---------------------------------------------------------------------------
@@ -247,6 +295,18 @@ test('trust：仅 GitHub 话题的条目被降权', () => {
   const topic = trustScore({ ...plugin(), sources: ['github'], evidence: 'topic' })
   const curated = trustScore({ ...plugin(), sources: ['github', 'awesome'], evidence: 'curated' })
   assert.ok(topic < curated)
+})
+
+test('trust：dsh.works 是 DSH 专属目录，它的条目不该被"没有目录认识"的折扣打中', () => {
+  const worksOnly = trustScore({ ...plugin(), sources: ['dsh.works'], evidence: 'curated' })
+  const genericOnly = trustScore({ ...plugin(), sources: ['dsh.so'], evidence: 'verified' })
+  assert.ok(worksOnly > genericOnly, 'dsh.works 只收 DSH 插件，认出它就是 DSH 专属证据')
+})
+
+test('trust：npm 关键字是自报的，只有 npm 证据的条目必须被降权', () => {
+  const npmOnly = trustScore({ ...plugin(), sources: ['npm'], evidence: 'indexed' })
+  const curated = trustScore({ ...plugin(), sources: ['npm', 'awesome'], evidence: 'curated' })
+  assert.ok(npmOnly < curated)
 })
 
 // ---------------------------------------------------------------------------

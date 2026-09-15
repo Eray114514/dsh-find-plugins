@@ -1,0 +1,117 @@
+{
+  "updated": "2026-09-15",
+  "plugins": [
+    {
+      "name": "429-throttle-mcp",
+      "repo": "iqingyoung/429-throttle-mcp",
+      "path": "packages/dsh-throttle",
+      "description": "DeepSeek Harness 限流插件：长程任务自动控速不再 429，支持任务复盘(begin_task/end_task)，复用 429-throttle-mcp 核心逻辑",
+      "category": "plugin",
+      "official": false,
+      "added": "2026-08-21",
+      "lastVerified": "2026-08-21",
+      "verifiedAgainst": "0.1.0-rc.8",
+      "status": "verified",
+      "evidence": "packages/dsh-throttle/package.json#dsh.manifest+prefix",
+      "npm": "dsh-throttle",
+      "stars": 1,
+      "starsUpdated": "2026-09-15",
+      "tags": [
+        "agents",
+        "capabilities"
+      ],
+      "pushedAt": "2026-09-06"
+    },
+    {
+      "name": "a4phone",
+      "repo": "eogee/a4phone",
+      "path": "dsh",
+      "description": "a4phone DSH plugin: task-complete, permission-request, and question-asked hooks plus remote resume service (mounted into DeepSeek Harness via a4p setup)",
+      "category": "plugin",
+      "official": false,
+      "added": "2026-08-17",
+      "lastVerified": "2026-08-20",
+      "verifiedAgainst": "0.1.0-rc.8",
+      "status": "unverified",
+      "stars": 5,
+      "starsUpdated": "2026-09-15",
+      "tags": [
+        "safety"
+      ],
+      "pushedAt": "2026-09-04"
+    },
+    {
+      "name": "deepagent",
+      "repo": "huangmingche/deepagent",
+      "path": "dsh-plugins/deepagent-ui-conversation",
+      "description": "DeepAgent-owned replacement for the DeepSeek Harness conversation domain",
+      "category": "plugin",
+      "official": false,
+      "added": "2026-08-17",
+      "lastVerified": "2026-08-17",
+      "verifiedAgainst": "0.1.0-rc.6",
+      "status": "broken",
+      "stars": 3,
+      "starsUpdated": "2026-08-17",
+      "tags": [
+        "capabilities"
+      ]
+    },
+    {
+      "name": "adhdgofly-dsh-ext",
+      "repo": "zuoguyoupan2023/adhdgofly-dsh-ext",
+      "description": "Part-of-speech highlighting for rendered Markdown: nouns green, verbs red, adjectives and adverbs purple.",
+      "category": "bundle",
+      "official": false,
+      "added": "2026-08-14",
+      "lastVerified": "2026-08-20",
+      "verifiedAgainst": "0.1.0-rc.8",
+      "status": "verified",
+      "evidence": "package.json#dsh.bundle",
+      "stars": 6,
+      "starsUpdated": "2026-09-15",
+      "tags": [
+        "ui"
+      ],
+      "pushedAt": "2026-09-06"
+    },
+    {
+      "name": "dsh-hooks-claude-code",
+      "repo": "deepseek-ai/deepseek-harness",
+      "path": "packages/hooks/hooks-claude-code",
+      "description": "Bridge plugin: runs an existing Claude Code hooks.json on the harness interception seams (command hooks only; http, mcp_tool, prompt, and agent hooks are skipped with a warning)",
+      "category": "plugin",
+      "official": true,
+      "added": "2026-08-13",
+      "lastVerified": "2026-08-13",
+      "verifiedAgainst": "0.1.0-rc.5",
+      "status": "verified",
+      "npm": "@deepseek-ai/dsh-hooks-claude-code",
+      "stars": 224570,
+      "starsUpdated": "2026-09-15",
+      "tags": [
+        "interop"
+      ],
+      "pushedAt": "2026-09-15"
+    },
+    {
+      "name": "4d4y-browser",
+      "repo": "lovaxi/4d4y-browser",
+      "description": "Permanent 4D4Y forum browser: fetches the real Discuz 7.2 interfaces (index / forumdisplay / viewthread), decodes GBK, parses, and renders a browser panel beside the sidebar with a sidebar entry",
+      "category": "plugin",
+      "official": false,
+      "added": "2026-08-17",
+      "lastVerified": "2026-08-20",
+      "verifiedAgainst": "0.1.0-rc.8",
+      "status": "verified",
+      "evidence": "package.json#dsh.client",
+      "stars": 0,
+      "starsUpdated": "2026-09-02",
+      "tags": [
+        "ui",
+        "capabilities"
+      ],
+      "pushedAt": "2026-08-16"
+    }
+  ]
+}

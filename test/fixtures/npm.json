@@ -1,0 +1,95 @@
+{
+  "total": 4980,
+  "objects": [
+    {
+      "package": {
+        "name": "dshmarket",
+        "version": "1.47.0",
+        "description": "Visual plugin market inside DeepSeek Harness — browse, search, and one-click install community plugins. · DSH 可视化插件市场：逛一逛，点一下，装好。",
+        "keywords": [
+          "deepseek",
+          "harness",
+          "dsh",
+          "dsh-plugin",
+          "marketplace",
+          "market",
+          "plugin-manager"
+        ],
+        "date": "2026-09-15T04:59:30.465Z",
+        "license": "MIT",
+        "links": {
+          "homepage": "https://dshmarket.com",
+          "repository": "git+https://github.com/dsh-market/dsh-market.git",
+          "bugs": "https://github.com/dsh-market/dsh-market/issues",
+          "npm": "https://www.npmjs.com/package/dshmarket"
+        }
+      },
+      "score": {
+        "final": 46.266308
+      }
+    },
+    {
+      "package": {
+        "name": "@xmanrui/dsh-im",
+        "version": "4.20.2",
+        "description": "把十一种 IM 渠道和公网 AI Office 接入本机 DeepSeek Harness。 Connect eleven IM channels and a public AI Office to a local DeepSeek Harness.",
+        "keywords": [
+          "deepseek-harness",
+          "dsh",
+          "dsh-plugin",
+          "ai-agent",
+          "im",
+          "instant-messaging",
+          "chatbot",
+          "feishu",
+          "lark",
+          "wechat",
+          "wecom",
+          "dingtalk",
+          "qq",
+          "slack",
+          "telegram",
+          "discord",
+          "whatsapp",
+          "imessage",
+          "ai-office"
+        ],
+        "date": "2026-09-12T18:16:29.956Z",
+        "license": "MIT",
+        "links": {
+          "homepage": "https://github.com/xmanrui/dsh-im#readme",
+          "repository": "git+https://github.com/xmanrui/dsh-im.git",
+          "bugs": "https://github.com/xmanrui/dsh-im/issues",
+          "npm": "https://www.npmjs.com/package/@xmanrui/dsh-im"
+        }
+      },
+      "score": {
+        "final": 40.872986
+      }
+    },
+    {
+      "package": {
+        "name": "dsh-omni-router",
+        "version": "2.4.0",
+        "description": "Omni - a reliability and orchestration control plane for DeepSeek Harness, designed to turn fast models into dependable long-horizon software-engineering agents.",
+        "keywords": [
+          "dsh",
+          "dsh-plugin",
+          "deepseek-harness",
+          "agent-preset",
+          "router",
+          "plan-mode",
+          "tdd"
+        ],
+        "date": "2026-08-24T07:14:04.643Z",
+        "license": "MIT",
+        "links": {
+          "npm": "https://www.npmjs.com/package/dsh-omni-router"
+        }
+      },
+      "score": {
+        "final": 1376.9177
+      }
+    }
+  ]
+}
