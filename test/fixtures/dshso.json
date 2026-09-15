@@ -1,0 +1,63 @@
+{
+  "generatedAt": "2026-09-13T00:10:06.734Z",
+  "count": 15472,
+  "plugins": [
+    {
+      "id": "colleague-skill",
+      "name": "colleague-skill",
+      "description": "将冰冷的离别化为温暖的 Skill，欢迎加入数字生命1.0！Transforming cold farewells into warm skills? It's giving rebirth era. Welcome to Digital Life 1.0. 🫶",
+      "stars": 23801,
+      "topics": [],
+      "install": "dsh plugin --profile web add github:titanwings/colleague-skill",
+      "url": "https://www.dsh.so/artifact/colleague-skill/",
+      "verification": {
+        "level": 1,
+        "label": "L1 · Found",
+        "lastVerifiedAt": "2026-08-24T16:22:16.565Z"
+      },
+      "security": {
+        "status": "audited",
+        "riskLevel": "low",
+        "scannedAt": "2026-08-25T23:41:32.910Z",
+        "scopeExcluded": true,
+        "counts": {
+          "critical": 0,
+          "warning": 0,
+          "info": 0
+        },
+        "filesScanned": 15
+      },
+      "repoHealth": {
+        "status": "merged",
+        "renamedTo": "https://github.com/titanwings/distilly"
+      }
+    },
+    {
+      "id": "openbiliclaw",
+      "name": "OpenBiliClaw",
+      "description": "本地私有、开源的跨平台 AI 内容发现 Agent：先理解你，再主动从 B站、小红书、抖音、YouTube、X、知乎、Reddit、微博等平台与开放 Web 寻找内容。 | Local-first open-source cross-platform AI content discovery agent: understands you, then proactively finds content across Bilibili, Xiaohongshu, Douyin, YouTube, X, Zhihu, Reddit, Weibo and the open web.",
+      "stars": 3223,
+      "topics": [
+        "media"
+      ],
+      "install": "dsh plugin --profile web add github:whiteguo233/OpenBiliClaw#v0.3.90",
+      "url": "https://www.dsh.so/artifact/openbiliclaw/",
+      "verification": {
+        "level": 4,
+        "label": "L4 · Install tested",
+        "lastVerifiedAt": "2026-09-11T05:27:01.195Z"
+      },
+      "security": {
+        "status": "audited",
+        "riskLevel": "low",
+        "scannedAt": "2026-09-12T19:00:11.911Z",
+        "counts": {
+          "critical": 0,
+          "warning": 0,
+          "info": 0
+        },
+        "filesScanned": 15
+      }
+    }
+  ]
+}

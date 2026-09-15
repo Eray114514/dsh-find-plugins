@@ -1,0 +1,58 @@
+{
+  "updated": "2026-09-13",
+  "count": 3632,
+  "plugins": [
+    {
+      "name": "dsh-answer-reviewer",
+      "owner": "bycall",
+      "url": "https://github.com/bycall/dsh-answer-reviewer",
+      "page": "https://awesome-dsh-plugin.com/p/bycall/dsh-answer-reviewer/",
+      "category": "agi",
+      "description": {
+        "en": "Agentic answer reviewer for DeepSeek Harness: each final assistant turn is re-reviewed by a separate LLM graded 1-100; below-threshold scores steer the agent back with concrete feedback. Live config over a 127.0.0.1 HTTP server, plus a right-sidebar config tab via dsh-better-sidebar.",
+        "zh": "智能体回答审查器：每一轮 agent 的最终输出由独立 LLM 重新打分（1-100），低于阈值时携带具体反馈引导 agent 自我修正。配置经 127.0.0.1 本地 HTTP 服务实时修改，也支持 dsh-better-sidebar 侧栏配置页。"
+      },
+      "npm": "dsh-answer-reviewer",
+      "version": "0.5.3",
+      "stars": 1,
+      "downloads": 283,
+      "install": "dsh plugin --profile web add dsh-answer-reviewer",
+      "added": "2026-09-09"
+    },
+    {
+      "name": "dsh-quality-review",
+      "owner": "CAI-MH",
+      "url": "https://github.com/CAI-MH/dsh-quality-review",
+      "page": "https://awesome-dsh-plugin.com/p/CAI-MH/dsh-quality-review/",
+      "category": "agi",
+      "description": {
+        "en": "Audit each finished assistant turn with an independent reviewer model and steer the agent to fix failed output, with at most 2 review rounds per turn and SOP-folder standards injected as an extra review dimension.",
+        "zh": "每轮回复结束时用独立审查模型审核输出，判定不合格则引导 agent 修复，每轮最多追问 2 次；可注入 SOP 文件夹标准作为额外审核维度。"
+      },
+      "npm": null,
+      "version": null,
+      "stars": 1,
+      "downloads": null,
+      "install": "dsh plugin --profile web add github:CAI-MH/dsh-quality-review",
+      "added": "2026-09-06"
+    },
+    {
+      "name": "dsh-memory",
+      "owner": "FuRongJun-1999",
+      "url": "https://github.com/FuRongJun-1999/dsh-memory",
+      "page": "https://awesome-dsh-plugin.com/p/FuRongJun-1999/dsh-memory/",
+      "category": "agi",
+      "description": {
+        "en": "White-box AGI architecture exploration: metacognition (self-cognition loop), continual learning (knowledge flywheel), world model (condition space, spatiotemporal memory graph), self-improvement (bootstrap discipline), zero-LLM white-box pipeline, and auditable trust guardrails.",
+        "zh": "白箱AGI架构探索：元认知（自我认知循环）、持续学习（知识飞轮）、世界模型（条件空间+语义时空图）、自我改进（自举纪律）、零LLM白箱管线与可审计信任护栏。"
+      },
+      "npm": "@furongjun1999/dsh-memory",
+      "tarball": "https://github.com/FuRongJun-1999/dsh-memory/releases/download/v0.3.0/furongjun1999-dsh-memory-0.3.0.tgz",
+      "version": "0.4.6",
+      "stars": 176,
+      "downloads": 9434,
+      "install": "dsh plugin --profile web add @furongjun1999/dsh-memory",
+      "added": "2026-08-14"
+    }
+  ]
+}

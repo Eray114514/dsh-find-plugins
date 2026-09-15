@@ -1,0 +1,250 @@
+{
+  "plugins": [
+    {
+      "id": "huiliyi37/dsh-tianshu-tui",
+      "order": 0,
+      "name": "dsh-tianshu-tui",
+      "owner": "huiliyi37",
+      "repo": "huiliyi37/dsh-tianshu-tui",
+      "url": "https://github.com/huiliyi37/dsh-tianshu-tui",
+      "category": "ui",
+      "description": {
+        "en": "A terminal UI (TUI) for DeepSeek Harness.",
+        "zh": "DeepSeek Harness 的终端 UI（TUI）。"
+      },
+      "added": "2026-08-13",
+      "curated": true,
+      "topic": true,
+      "stars": 104,
+      "forks": 4,
+      "openIssues": 2,
+      "watchers": 104,
+      "pushedAt": "2026-08-14T08:03:45Z",
+      "updatedAt": "2026-08-14T08:11:19Z",
+      "createdAt": "2026-08-13T04:20:37Z",
+      "license": "Apache-2.0",
+      "language": "TypeScript",
+      "homepage": "https://github.com/huiliyi37/dsh-tianshu-tui",
+      "archived": false,
+      "defaultBranch": "main",
+      "maintenance": "active",
+      "manifest": {
+        "state": "verified",
+        "branch": "main",
+        "kinds": [
+          "bundle"
+        ],
+        "packageName": "@huiliyi37/dsh-tianshu-tui",
+        "version": "0.1.1-rc.6",
+        "lifecycleScripts": [],
+        "runtimeDependencies": 4,
+        "declaredPaths": [
+          "cordis.patch.yml",
+          "lib/index.js"
+        ],
+        "invalidDeclaredPaths": []
+      },
+      "installCommand": null,
+      "discovery": {
+        "source": "curated",
+        "firstSeenAt": "2026-08-13",
+        "lastSeenAt": "2026-08-14T08:18:12.622Z"
+      },
+      "screening": {
+        "version": 1,
+        "scope": "manifest",
+        "state": "pending",
+        "risk": "unknown",
+        "checkedAt": "2026-08-14T08:18:12.622Z",
+        "findings": [],
+        "filesInspected": [
+          "package.json"
+        ],
+        "checks": {
+          "manifest": true,
+          "license": true,
+          "readme": false,
+          "lockfile": false,
+          "source": false,
+          "securityDisclosure": false
+        }
+      },
+      "attention": {
+        "level": "clear",
+        "reasons": []
+      },
+      "screenedCommit": null
+    },
+    {
+      "id": "huiliyi37/dsh-tianshu-tui",
+      "order": 0,
+      "name": "dsh-tianshu-tui",
+      "owner": "huiliyi37",
+      "repo": "huiliyi37/dsh-tianshu-tui",
+      "url": "https://github.com/huiliyi37/dsh-tianshu-tui",
+      "category": "ui",
+      "description": {
+        "en": "A terminal UI (TUI) for DeepSeek Harness.",
+        "zh": "DeepSeek Harness 的终端 UI（TUI）。"
+      },
+      "added": "2026-08-13",
+      "curated": true,
+      "topic": true,
+      "stars": 104,
+      "forks": 4,
+      "openIssues": 2,
+      "watchers": 104,
+      "pushedAt": "2026-08-14T08:03:45Z",
+      "updatedAt": "2026-08-14T08:11:19Z",
+      "createdAt": "2026-08-13T04:20:37Z",
+      "license": "Apache-2.0",
+      "language": "TypeScript",
+      "homepage": "https://github.com/huiliyi37/dsh-tianshu-tui",
+      "archived": false,
+      "defaultBranch": "main",
+      "maintenance": "active",
+      "manifest": {
+        "state": "verified",
+        "branch": "main",
+        "kinds": [
+          "bundle"
+        ],
+        "packageName": "@huiliyi37/dsh-tianshu-tui",
+        "version": "0.1.1-rc.6",
+        "lifecycleScripts": [],
+        "runtimeDependencies": 4,
+        "declaredPaths": [
+          "cordis.patch.yml",
+          "lib/index.js"
+        ],
+        "invalidDeclaredPaths": []
+      },
+      "installCommand": null,
+      "discovery": {
+        "source": "curated",
+        "firstSeenAt": "2026-08-13",
+        "lastSeenAt": "2026-08-14T08:18:12.622Z"
+      },
+      "screening": {
+        "version": 1,
+        "scope": "manifest",
+        "state": "pending",
+        "risk": "unknown",
+        "checkedAt": "2026-08-14T08:18:12.622Z",
+        "findings": [],
+        "filesInspected": [
+          "package.json"
+        ],
+        "checks": {
+          "manifest": true,
+          "license": true,
+          "readme": false,
+          "lockfile": false,
+          "source": false,
+          "securityDisclosure": false
+        }
+      },
+      "attention": {
+        "level": "clear",
+        "reasons": []
+      },
+      "screenedCommit": null
+    },
+    {
+      "id": "omdsh-dev/dsh-at-file",
+      "order": 2,
+      "name": "dsh-at-file",
+      "owner": "omdsh-dev",
+      "repo": "omdsh-dev/dsh-at-file",
+      "url": "https://github.com/omdsh-dev/dsh-at-file",
+      "category": "ui",
+      "description": {
+        "en": "Codex-style `@file` mentions: search workspace files in the composer and attach their contents to prompts.",
+        "zh": "Codex 风格的 `@file` 文件引用，输入框里直接搜索并引用工作区文件。"
+      },
+      "added": "2026-08-13",
+      "curated": true,
+      "topic": true,
+      "stars": 89,
+      "forks": 3,
+      "openIssues": 0,
+      "watchers": 89,
+      "pushedAt": "2026-08-14T07:27:34Z",
+      "updatedAt": "2026-08-14T08:15:23Z",
+      "createdAt": "2026-08-13T12:00:09Z",
+      "license": "MIT",
+      "language": "JavaScript",
+      "homepage": null,
+      "archived": false,
+      "defaultBranch": "main",
+      "maintenance": "active",
+      "manifest": {
+        "state": "verified",
+        "branch": "main",
+        "kinds": [
+          "bundle",
+          "client"
+        ],
+        "packageName": "dsh-at-file",
+        "version": "0.4.0",
+        "lifecycleScripts": [],
+        "runtimeDependencies": 1,
+        "declaredPaths": [
+          "cordis.patch.yml",
+          "lib/index.js",
+          "lib/client.js"
+        ],
+        "invalidDeclaredPaths": []
+      },
+      "installCommand": null,
+      "discovery": {
+        "source": "curated",
+        "firstSeenAt": "2026-08-13",
+        "lastSeenAt": "2026-08-14T08:18:12.622Z"
+      },
+      "screening": {
+        "version": 1,
+        "scope": "manifest",
+        "state": "pending",
+        "risk": "unknown",
+        "checkedAt": "2026-08-14T08:18:12.622Z",
+        "findings": [],
+        "filesInspected": [
+          "package.json"
+        ],
+        "checks": {
+          "manifest": true,
+          "license": true,
+          "readme": false,
+          "lockfile": false,
+          "source": false,
+          "securityDisclosure": false
+        }
+      },
+      "attention": {
+        "level": "clear",
+        "reasons": []
+      },
+      "screenedCommit": null,
+      "codexPick": {
+        "repo": "omdsh-dev/dsh-at-file",
+        "pickedAt": "2026-08-14T03:10:26.926Z",
+        "reviewedCommit": "2c5653ebc3240626cdad41a9c01d15d22471aed2",
+        "category": "ui",
+        "summary": {
+          "zh": "在 DSH 输入框中用 @ 搜索并引用当前工作区的文件或目录路径。",
+          "en": "Adds Codex-style @path search and references to the DSH composer."
+        },
+        "reason": {
+          "zh": "交互直接、使用频率高；当前版本只注入工作区相对路径，由 Agent 按需读取文件。",
+          "en": "A frequent, direct workflow improvement; current releases inject a workspace-relative path and let the agent read on demand."
+        },
+        "safety": {
+          "risk": "medium",
+          "zh": "会索引工作区路径名并提供打开路径能力；符号链接与越界路径会被拒绝。",
+          "en": "Indexes workspace path names and can open selected paths; symlinks and paths outside the workspace are rejected."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "total_count": 467,
+  "items": [
+    {
+      "full_name": "plastic-labs/honcho",
+      "html_url": "https://github.com/plastic-labs/honcho",
+      "description": " Memory library for building stateful agents",
+      "stargazers_count": 7140,
+      "pushed_at": "2026-09-11T20:33:45Z",
+      "topics": [
+        "agent-memory",
+        "agentic-rag",
+        "ai",
+        "ai-agents",
+        "ai-memory",
+        "context-engineering",
+        "continual-learning",
+        "dsh-plugin",
+        "llm",
+        "memory"
+      ],
+      "archived": false,
+      "license": {
+        "spdx_id": "AGPL-3.0"
+      },
+      "owner": {
+        "login": "plastic-labs"
+      },
+      "name": "honcho"
+    },
+    {
+      "full_name": "adoresever/graph-memory",
+      "html_url": "https://github.com/adoresever/graph-memory",
+      "description": "Deepseek Harness、Openclaw知识图谱记忆插件。2026年4月受邀发布在清华大学讨论会。Knowledge Graph + Memory；Knowledge Graph Context Engine for OpenClaw — extracts structured triples from conversations, compresses context 75%, enables cross-session experience reuse",
+      "stargazers_count": 618,
+      "pushed_at": "2026-09-09T07:51:31Z",
+      "topics": [
+        "claude-code",
+        "codex",
+        "deepseek",
+        "deepseek-harness",
+        "dsh",
+        "dsh-plugin",
+        "dsh-plugins",
+        "knowledge-graph",
+        "memory",
+        "openclaw",
+        "openclaw-plugin",
+        "opencode"
+      ],
+      "archived": false,
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "owner": {
+        "login": "adoresever"
+      },
+      "name": "graph-memory"
+    },
+    {
+      "full_name": "volcengine/OpenViking",
+      "html_url": "https://github.com/volcengine/OpenViking",
+      "description": "Self-evolving Context Database for AI Agents. Unify Agent Memory, Knowledge RAG and Skills.",
+      "stargazers_count": 36936,
+      "pushed_at": "2026-09-13T09:51:46Z",
+      "topics": [
+        "agent-memory",
+        "agent-plugins",
+        "agentic-rag",
+        "context-database",
+        "dsh-plugin",
+        "self-evolving"
+      ],
+      "archived": false,
+      "license": {
+        "spdx_id": "AGPL-3.0"
+      },
+      "owner": {
+        "login": "volcengine"
+      },
+      "name": "OpenViking"
+    }
+  ]
+}

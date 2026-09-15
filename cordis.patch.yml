@@ -1,0 +1,4 @@
+# dsh-find-plugins bundle patch — inserts this plugin into a profile's layer stack.
+- insert:
+    - id: dsh-find-plugins
+      name: 'dsh-find-plugins'
