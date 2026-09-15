@@ -1,6 +1,6 @@
 {
   "name": "dsh-find-plugins",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Find DSH (DeepSeek Harness) plugins: search several community catalogs at once and rank by relevance × trust × freshness instead of stars alone.",
   "type": "module",
   "main": "lib/index.js",
@@ -18,6 +18,14 @@
   ],
   "license": "MIT",
   "author": "Eray114514",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eray114514/dsh-find-plugins.git"
+  },
+  "homepage": "https://github.com/Eray114514/dsh-find-plugins#readme",
+  "bugs": {
+    "url": "https://github.com/Eray114514/dsh-find-plugins/issues"
+  },
   "keywords": [
     "dsh",
     "dsh-plugin",
