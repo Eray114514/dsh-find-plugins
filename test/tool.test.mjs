@@ -91,6 +91,33 @@ test('limit 夹取：超上限截断，非法值回落默认', async () => {
   assert.equal((await tool.execute({ query: 'x' })).limit, 8)
 })
 
+// Regression: the tool framework rejects any output that is not "lossless JSON",
+// i.e. whose values cannot be stringified and parsed back without change.
+// `undefined` in an object is silently dropped by JSON.stringify, which made
+// the result objects fail the framework's validation with the cryptic message
+// "value is not lossless JSON".
+test('输出对象在 JSON.stringify/parse 之后完全相等（无 undefined 丢值）', async () => {
+  const [tool] = collect()
+  const out = await tool.execute({ query: 'memory' })
+  // 1. 整对象必须是 lossless 的
+  const roundTrip = JSON.parse(JSON.stringify(out))
+  assert.deepEqual(roundTrip, out, 'JSON.stringify(out) 然后 parse 必须等于 out')
+  // 2. 顶层的任何字段都不应该是 undefined（值是 undefined 会让 stringify 静默丢键）
+  for (const [k, v] of Object.entries(out)) {
+    assert.notEqual(v, undefined, `字段 ${k} 不应为 undefined`)
+  }
+  // 3. results 里每一项都该满足同样的条件
+  for (const item of out.results) {
+    for (const [k, v] of Object.entries(item)) {
+      assert.notEqual(v, undefined, `results[].${k} 不应为 undefined`)
+    }
+    // score 字段要么存在且是对象，要么完全不存在（不能是 score: undefined）
+    if ('score' in item) {
+      assert.equal(typeof item.score, 'object')
+    }
+  }
+})
+
 test('非数字 limit 由运行时的 schema 校验拦下，不会进 execute', async () => {
   const [tool] = collect()
   await assert.rejects(
