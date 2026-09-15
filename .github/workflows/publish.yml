@@ -20,15 +20,25 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      # Published artifacts must pass on the LOWEST supported Node, not just the
+      # one that happens to ship the npm CLI this workflow needs (OIDC trusted
+      # publishing wants npm >= 11.5, i.e. Node 24). v0.2.4 shipped on a run
+      # where the Node 22 leg of `test.yml` failed, which is precisely the gap
+      # this step closes.
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Install
+        run: npm ci
+      - name: Test on the lowest supported Node
+        run: npm test
+
       - uses: actions/setup-node@v6
         with:
           node-version: '24'
           registry-url: 'https://registry.npmjs.org'
           # Never cache in a release build (`cache` is the supported input name).
           cache: ''
-
-      - name: Install
-        run: npm ci
 
       # Never publish something that does not pass its own tests.
       - name: Test
