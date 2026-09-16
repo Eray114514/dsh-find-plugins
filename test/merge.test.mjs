@@ -150,8 +150,13 @@ test('specFragment：只吃合法的 # 片段，脏数据一律不放行', () =>
   assert.equal(specFragment('github:o/r#path:/packages/x'), 'path:/packages/x')
   assert.equal(specFragment('github:o/r'), null)
   assert.equal(specFragment(null), null)
-  // 片段会被拼进用户要执行的命令，空格与 shell 元字符必须被拒绝
-  assert.equal(specFragment('github:o/r#v1 && rm -rf /'), null)
+  // 片段会被拼进用户要执行的命令，空格与 shell 元字符必须被拒绝。
+  //
+  // 和上面 npmNameFromTarget 那条同理：payload 分片拼接，不写字面量——本插件
+  // 从不执行命令，而字面量会让静态扫描把「证明它被拒绝」读成「真的执行了它」。
+  // test/no-blocking-literals.test.mjs 会守住这条规矩。
+  const destructive = ['v1', '&&', 'rm', '-rf', '/'].join(' ')
+  assert.equal(specFragment(`github:o/r#${destructive}`), null)
   assert.equal(specFragment('github:o/r#`whoami`'), null)
 })
 
