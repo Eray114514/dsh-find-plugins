@@ -5,8 +5,8 @@ Find the **right** DeepSeek Harness plugin, not just a plugin.
 [中文](./README.md) | **English**
 
 This plugin gives the agent one tool — `find_dsh_plugins` — that searches the whole  
-DSH plugin ecosystem and ranks what it finds by **relevance × trust × freshness**  
-instead of stars alone.
+DSH plugin ecosystem and ranks what it finds by **relevance × trust × freshness ×  
+popularity** instead of stars alone.
 
 ---
 

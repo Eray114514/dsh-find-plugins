@@ -1,7 +1,7 @@
 {
   "name": "dsh-find-plugins",
-  "version": "0.2.6",
-  "description": "Find DSH (DeepSeek Harness) plugins: search seven community catalogs and registries at once and rank by relevance × trust × freshness instead of stars alone.",
+  "version": "0.2.7",
+  "description": "Find DSH plugins across five community catalogs plus live GitHub and npm search, ranked by relevance × trust × freshness × popularity — not stars alone.",
   "type": "module",
   "main": "lib/index.js",
   "exports": {
