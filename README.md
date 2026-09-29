@@ -38,7 +38,7 @@ dsh plugin --profile <你的 profile> add dsh-find-plugins
 
 然后重启 DSH。agent 就多了一个工具 `find_dsh_plugins`。
 
-需要 DSH 带 `@deepseek-ai/dsh-tools` ≥ 0.1.5-rc.2、Node ≥ 22。**零运行时依赖。**
+需要 DSH 带 `@deepseek-ai/dsh-tools`（0.1.5-rc.2 起，含 0.2.x）、Node ≥ 22。**零运行时依赖。**
 
 ---
 

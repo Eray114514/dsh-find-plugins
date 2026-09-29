@@ -42,7 +42,7 @@ dsh plugin --profile <your-profile> add dsh-find-plugins
 
 Then restart DSH. The agent gains one tool, `find_dsh_plugins`.
 
-Requires DSH with `@deepseek-ai/dsh-tools` ≥ 0.1.5-rc.2 and Node ≥ 22.  
+Requires DSH with `@deepseek-ai/dsh-tools` (0.1.5-rc.2 onward, including 0.2.x) and Node ≥ 22.  
 Zero runtime dependencies.
 
 ---
