@@ -38,8 +38,10 @@ dsh plugin --profile <你的 profile> add dsh-find-plugins
 
 然后重启 DSH。agent 就多了一个工具 `find_dsh_plugins`。
 
-需要 DSH（Cordis 4.x）与 Node ≥ 22。`@deepseek-ai/dsh-tools` 作为**普通依赖**自带，因此不参与
-DSH 安装期的 peer 校验 —— dsh 核心换版本段也不会把插件拦在门外。
+需要 DSH 带 `@deepseek-ai/dsh-tools`（0.1.5-rc.2 起，含 0.2.x）与 Node ≥ 22。
+
+> `dsh-tools` 提供 `tools` 服务，**必须与宿主共享同一个实例**，所以走 `peerDependencies`
+> 而不是 `dependencies` —— 后者会让 profile 里出现一份副本，覆盖运行时版本、导致服务激活失败。
 
 ---
 
