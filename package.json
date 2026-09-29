@@ -1,6 +1,6 @@
 {
   "name": "dsh-find-plugins",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "Find DSH plugins across five community catalogs plus live GitHub and npm search, ranked by relevance × trust × freshness × popularity — not stars alone.",
   "type": "module",
   "main": "lib/index.js",
@@ -48,7 +48,9 @@
     "test": "node --test test/*.test.mjs"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "^4.0.2",
+    "@deepseek-ai/cordis": "^4.0.2"
+  },
+  "dependencies": {
     "@deepseek-ai/dsh-tools": "^0.1.5-rc.2 || ^0.2.0-rc.1"
   },
   "devDependencies": {

@@ -42,8 +42,9 @@ dsh plugin --profile <your-profile> add dsh-find-plugins
 
 Then restart DSH. The agent gains one tool, `find_dsh_plugins`.
 
-Requires DSH with `@deepseek-ai/dsh-tools` (0.1.5-rc.2 onward, including 0.2.x) and Node ≥ 22.  
-Zero runtime dependencies.
+Requires DSH (Cordis 4.x) and Node ≥ 22. `@deepseek-ai/dsh-tools` ships as a **regular dependency**, so it
+stays out of DSH's install-time peer check — a dsh core release in a new version range cannot lock the
+plugin out.
 
 ---
 
