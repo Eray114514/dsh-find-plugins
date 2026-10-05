@@ -67,7 +67,7 @@ Requires DSH with `@deepseek-ai/dsh-tools` (0.1.5-rc.2 onward, including 0.2.x) 
 
 (The output is Chinese — it is written for the agent and the user, not for this README.)
 
-Five things in that output matter more than they look:
+Six things in that output matter more than they look:
 
 - **the source header** — so the agent can tell "the ecosystem has three of  
   these" from "one catalog timed out"; `相关 N` (match total) appears only when a  
@@ -78,7 +78,14 @@ Five things in that output matter more than they look:
   install-lifecycle scripts;
 - **`兼容`** — the dsh version the catalog verified against. Compatibility is  
   this ecosystem's first failure mode (one core release can drop a client module  
-  entry point), so when a source states it, it is surfaced;
+  entry point), so when a source states it, it is surfaced. The tool also  
+  detects YOUR running host version (reporting the raw number without guessing  
+  when it cannot): a verification from a different release line is flagged with  
+  ⚠, same-line and exact matches are annotated too;
+- **`⚠ 已 N 天未更新`** — an entry silent for over two weeks is called out in  
+  the output AND demoted 15% in the ranking (multiplicative, so the relative  
+  order among stale entries is preserved); an unknown date is never flagged —  
+  absence of a date is not evidence of abandonment;
 - **`npm 版本`** — when the install target is an npm package, its registry  
   version; `（仓库已核对）` means the manifest was fetched and its `repository`  
   field matches the entry.
