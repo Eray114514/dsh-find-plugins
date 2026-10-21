@@ -1,6 +1,6 @@
 {
   "name": "dsh-find-plugins",
-  "version": "0.2.10",
+  "version": "0.3.0",
   "description": "Find DSH plugins across five community catalogs plus live GitHub and npm search, ranked by relevance × trust × freshness × popularity — not stars alone.",
   "type": "module",
   "main": "lib/index.js",
@@ -42,7 +42,8 @@
     "agent-tool"
   ],
   "engines": {
-    "node": ">=22"
+    "node": ">=22",
+    "dsh": ">=0.1.5-rc.2 <0.3.0-0"
   },
   "scripts": {
     "test": "node --test test/*.test.mjs"

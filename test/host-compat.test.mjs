@@ -128,6 +128,22 @@ test('宿主探测：CLI 入口在宿主包内部，向上走即命中', () => {
   assert.equal(detectHostVersion({ env: {}, resourcesPath: undefined, entry }), '0.1.9')
 })
 
+test('宿主探测：桌面宿主退回真 sidecar（无 resourcesPath）时从入口向上认领', () => {
+  // 真实桌面宿主的入口就是 <dsh-desktop-host>/lib/index.js。若宿主哪天变成
+  // 纯 Node sidecar（没有 resourcesPath、ASAR 也不 patch），这是唯一还能作答的
+  // 那条路——只认 @deepseek-ai/dsh 时它会在上一层错过，然后静默返回 null。
+  const root = fixture({
+    'app.asar/dsh/node_modules/@deepseek-ai/dsh-desktop-host/package.json': {
+      name: '@deepseek-ai/dsh-desktop-host', version: '0.2.1-rc.2',
+    },
+  })
+  const entry = path.join(root, 'app.asar', 'dsh', 'node_modules', '@deepseek-ai',
+    'dsh-desktop-host', 'lib', 'index.js')
+  mkdirSync(path.dirname(entry), { recursive: true })
+  writeFileSync(entry, '')
+  assert.equal(detectHostVersion({ env: {}, resourcesPath: undefined, entry }), '0.2.1-rc.2')
+})
+
 // ---------------------------------------------------------------------------
 // 兼容行对比：cross / same-line / match / unknown
 // ---------------------------------------------------------------------------
@@ -215,6 +231,35 @@ test('renderText：2 周内不提示；日期未知不误报', () => {
   assert.ok(!unknown.includes('未更新'), '没有日期不是废弃的证据')
 })
 
+test('renderText：降权与提示用同一条边界（14 天 23 小时两边都不该触发）', () => {
+  // 回归：排序按小数天数比较、渲染按 floor 比较时，14–15 天这一段会被降权
+  // 却从不点名——用户看到的是"没被标陈旧但排名莫名靠后"。
+  const almost = new Date(NOW - 14.99 * 86_400_000).toISOString()
+  assert.ok(!renderText(sample({ pushedAt: almost }), NOW).includes('未更新'),
+    '整日未超 2 周不该点名')
+  assert.equal(freshnessScore({ pushedAt: almost }, NOW), 1, '同一条边界上排序也不该降权')
+
+  const past = new Date(NOW - 15 * 86_400_000).toISOString()
+  assert.match(renderText(sample({ pushedAt: past }), NOW), /已 15 天未更新/)
+  assert.ok(freshnessScore({ pushedAt: past }, NOW) < 1, '过了边界排序必须降权')
+})
+
+test('renderText：源自己截断了查询就明示（否则"查窄了"会被读成"只有这些"）', () => {
+  const out = renderText({
+    sources: { npm: { ok: true, label: 'npm', count: 3, truncated: true }, radar: { ok: true } },
+    poolSize: 3, matched: 3,
+    results: [{ repo: 'a/b', stars: 1, pushedAt: '2026-10-01', install: 'x', trust: 'y' }],
+  }, NOW)
+  assert.match(out, /npm ✓\(3 条 · 查询已截断\)/)
+
+  const whole = renderText({
+    sources: { npm: { ok: true, label: 'npm', count: 3 } },
+    poolSize: 1, matched: 1,
+    results: [{ repo: 'a/b', stars: 1, pushedAt: '2026-10-01', install: 'x', trust: 'y' }],
+  }, NOW)
+  assert.ok(!whole.includes('查询已截断'), '没有截断时不该出现该标记')
+})
+
 // ---------------------------------------------------------------------------
 // 排序：超 2 周降权
 // ---------------------------------------------------------------------------
@@ -240,7 +285,13 @@ test('freshness：降权是乘法——老插件之间仍按年龄拉开差距',
 
 test('freshness：未知日期仍给中性分，不受降权影响', () => {
   const unknown = freshnessScore({ pushedAt: null }, NOW)
-  assert.equal(unknown, 0.85, '未知 ≠ 陈旧')
+  // 与「陈旧降权后」同分（0.85）是有意的：两者都不足以证明插件还活着。
+  assert.equal(unknown, 0.85)
+})
+
+test('freshness：陈旧降权后恰好落在未知日期的中性分上（有意，不是巧合）', () => {
+  const stale = freshnessScore({ pushedAt: '2026-09-01T00:00:00Z' }, NOW) // 35 天
+  assert.equal(stale, freshnessScore({ pushedAt: null }, NOW))
 })
 
 test('freshness：既有档位约束不被破坏（回归）', () => {
