@@ -42,7 +42,10 @@ dsh plugin --profile <your-profile> add dsh-find-plugins
 
 Then restart DSH. The agent gains one tool, `find_dsh_plugins`.
 
-Requires DSH with `@deepseek-ai/dsh-tools` (0.1.5-rc.2 onward, including 0.2.x) and Node ≥ 22.
+Requires DSH from 0.1.5-rc.2 up to (but excluding) 0.3.0, prereleases included, and Node ≥ 22. The
+range is declared as `engines.dsh`, so `dsh plugin` checks it before installing and names the exact
+range when it does not match; `0.2.1-rc.2` (the current desktop release) is the version this is
+verified against.
 
 > `dsh-tools` provides the `tools` service and **must share one instance with the host**, so it is a
 > `peerDependencies` entry rather than a `dependencies` one — a dependency copy lands in the profile,
@@ -71,7 +74,9 @@ Six things in that output matter more than they look:
 
 - **the source header** — so the agent can tell "the ecosystem has three of  
   these" from "one catalog timed out"; `相关 N` (match total) appears only when a  
-  source reports it, because a search-backed source always reads one page;
+  source reports it, because a search-backed source always reads one page; a long  
+  npm query is narrowed to the endpoint's 64-character ceiling, and a narrowed  
+  search is marked `查询已截断`, so "we searched less" never reads as "that is all";
 - **`可信`** — which catalogs know the plugin, its verification level, and its  
   security scan result;
 - **`风险`** — the catalogs' own review findings, including things like  
